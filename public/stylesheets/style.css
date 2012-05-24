@@ -1,0 +1,876 @@
+
+/* =============================================================================
+   HTML5 display definitions
+   ========================================================================== */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+summary {
+  display: block;
+}
+
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+[hidden] {
+  display: none;
+}
+
+/* =============================================================================
+   Base
+   ========================================================================== */
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+html,
+button,
+input,
+select,
+textarea {
+    ont-family: sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+/* =============================================================================
+   Toolkit
+   ========================================================================== */
+
+.cf:before,
+.cf:after {
+  content:"";
+  display:table;
+}
+
+.cf:after {
+  clear:both;
+}
+
+.cf {
+  *zoom:1;
+}
+
+/* =============================================================================
+   Links
+   ========================================================================== */
+
+a:focus {
+  outline: thin dotted;
+}
+
+a:hover,
+a:active {
+  outline: 0;
+}
+
+/* =============================================================================
+   Typography
+   ========================================================================== */
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin: 0.83em 0;
+}
+
+h3 {
+  font-size: 1.17em;
+  margin: 1em 0;
+}
+
+h4 {
+  font-size: 1em;
+  margin: 1.33em 0;
+}
+
+h5 {
+  font-size: 0.83em;
+  margin: 1.67em 0;
+}
+
+h6 {
+  font-size: 0.75em;
+  margin: 2.33em 0;
+}
+
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+blockquote {
+  margin: 1em 40px;
+}
+
+dfn {
+  font-style: italic;
+}
+
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+p,
+pre {
+  margin: 1em 0;
+}
+
+pre,
+code,
+kbd,
+samp {
+  font-family: monospace, serif;
+  _font-family: 'courier new', monospace;
+  font-size: 1em;
+}
+
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+q {
+  quotes: none;
+}
+
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+small {
+  font-size: 75%;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+dl,
+menu,
+ol,
+ul {
+  margin: 1em 0;
+}
+
+dd {
+  margin: 0 0 0 40px;
+}
+
+menu,
+ol,
+ul {
+  padding: 0 0 0 40px;
+}
+
+nav ul,
+nav ol {
+  list-style: none;
+  list-style-image: none;
+}
+
+/* =============================================================================
+   Embedded content
+   ========================================================================== */
+
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* =============================================================================
+   Figures
+   ========================================================================== */
+
+figure {
+  margin: 0;
+}
+
+/* =============================================================================
+   Forms
+   ========================================================================== */
+
+form {
+  margin: 0;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  border: 0;
+  padding: 0;
+  white-space: normal;
+  *margin-left: -7px;
+}
+
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  *vertical-align: middle;
+}
+
+button,
+input {
+  line-height: normal;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+  *overflow: visible; 
+}
+
+button[disabled],
+input[disabled] {
+  cursor: default;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+  *height: 13px;
+  *width: 13px;
+}
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+/* =============================================================================
+   Tables
+   ========================================================================== */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* =============================================================================
+   General
+   ========================================================================== */
+
+/*
+  font-family: 'Droid Sans', sans-serif;
+  font-family: 'Droid Serif', serif;
+*/
+
+img {
+  max-width: 100%;
+}
+
+/* =============================================================================
+   Index
+   ========================================================================== */
+
+body {
+
+}
+
+.stage {
+  margin: 0 auto;
+  /*max-width: 1048px;*/
+  width: 100%;
+}
+
+.mainmast {
+  /*background: transparent url(../public/images/photos/photo1-mobile.jpg) no-repeat center top;*/
+  height: 100%;
+  max-height: 512px;
+  /*max-width: 1048px;*/
+  min-height: 262px;
+  min-width: 320px;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+
+.logo-wrapper {
+  padding-top: 35px;
+}
+
+#mm-bg {
+  height: 100%;
+  max-height: 512px;
+  /*max-width: 1048px;*/
+  min-height: 262px;
+  min-width: 320px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+#logo {
+  display: block;
+  margin: 0 auto 6.5%;
+}
+
+.main-btn {
+  background: #b12828 url(../images/main-red-btn.gif) repeat-x 0 0;
+  /*background: transparent url(../public/images/main-red-btn-full.png) no-repeat 0 0;*/
+  border: 1px solid #d02626;
+  border-radius: 3px;
+  box-shadow: 0px 1px 3px #333;
+  color: #fff;
+  display: block;
+  font: 700 15px 'Droid Sans', sans-serif;
+  height: 17.121%;
+  margin: 0 auto;
+  max-height: 89px;
+  min-height: 44px;
+  min-width: 258px;
+  max-width: 516px;
+  width: 80.625%;
+}
+
+#compose {
+  margin-bottom: 19.25%;
+  z-index: -1;
+}
+
+.compose {
+  margin: 0 auto;
+  max-width: 860px;
+  width: 80%;
+}
+
+.composer {
+  position: relative;
+}
+
+.comment-editor {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #aeaeae;
+  font: italic 18px 'Droid Serif', serif;;
+  height: 73px;
+  overflow: hidden;
+  padding: 26px 164px 26px 28px;
+  resize: none;
+  width: 100%;
+}
+
+.submit-comment {
+  background-image: -moz-linear-gradient(top, #dd503d, #da351e);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#dd503d), to(#da351e));
+  background-image: -webkit-linear-gradient(top, #dd503d, #da351e);
+  background-image: -o-linear-gradient(top, #dd503d, #da351e);
+  border: 1px solid #d02626;
+  border-radius: 3px;
+  color: #fff;
+  font: 700 13px 'Droid Sans', sans-serif;
+  height: 46px;
+  top: 13px;
+  padding: 0 1em;
+  position: absolute;
+  right: 10px;
+}
+
+.filters {
+  bottom: 0;
+  /*display: table;*/
+  height: 36px;
+  left: 50%;
+  margin-left: -50%;
+  /*max-width: 820px;*/
+  padding: 0;
+  position: absolute;
+  text-align: center;
+  /*width: 90%;*/
+  width: 100%;
+}
+
+.filter {
+  background: rgba(63, 72, 85, 0.8);
+  border-radius: 8px 8px 0 0;
+  color: #bebec3;
+  cursor: pointer;
+  display: inline-block;
+  /*display: table-cell;*/
+  font: 400 14px 'Droid Sans', sans-serif;
+  height: 28px;
+  line-height: 28px;
+  margin-right: 5px;
+  max-width: 292px;
+  /*
+  max-height: 56px;
+  max-width: 281px;
+  min-width: 116px;
+  */
+  position: relative;
+  text-align: center;
+  text-shadow: 1px 1px 1px #333;
+  text-transform: uppercase;
+  top: 0;
+  vertical-align: middle;
+  width: 45%;
+}
+.filter:hover {
+  color: #fff;
+}
+
+#search-tags {
+  display: none;
+}
+
+.current-filter {
+  background: transparent url(../images/active-tab-bg.png) no-repeat center top;
+  background-size: 100% auto;
+  /*box-shadow: 3px -1px 4px -2px #555, -2px -1px 4px -1px #444;*/
+  /*box-shadow: 3px -2px 4px -2px #555;*/
+  /*box-shadow: -2px -1px 2px -1px #444;*/
+  bottom: 0;
+  /*box-shadow: 3px -2px 4px -2px #555, -2px -1px 2px -1px #444;*/
+  color: #7d7d7d;
+  height: 44px;
+  line-height: 44px;
+  margin-right: 0;
+  position: relative;
+  text-shadow: none;
+  top: 0;
+}
+  .current-filter:hover {
+    color: #7d7d7d;
+  }
+
+/*
+.current-filter .filter-label {
+  display: block;
+  padding-bottom: 4px;
+}
+*/
+
+.communications {
+  background: #fff;
+}
+
+.msgs {
+  clear: both;
+  margin: 0 auto;
+  padding: 1em 6% 6%;
+  max-width: 820px;
+}
+
+#new-comments {
+  border: 1px solid #ECECEC;
+  color: #9d9d9d;
+  cursor: pointer;
+  display: none;
+  font: 400 12px "Droid Serif", serif;
+  margin: 1em 0;
+  padding: 1em 0;
+  text-align: center;
+}
+
+.msg {
+  border-bottom: 1px solid #ececec;
+  padding: 1em 0;
+  width: 100%;
+}
+
+.left-pane {
+  float: left;
+  max-width: 89px;
+  /*margin-right: 8px;*/
+  padding: 0.5em 0;
+  width: 10%;
+}
+
+.love-button {
+  background: transparent url(../images/heart-filled.png) no-repeat 0 0;
+  background-size: 100% 100%;
+  border: 0;
+  color: #fff;
+  display: block;
+  font: 700 11px 'Droid Sans', sans-serif;
+  height: 28px;
+  line-height: 26px;
+  margin: 0 auto;
+  /*
+  height: 39px;
+  line-height: 39px;*/
+  /*
+  max-height: 39px;
+  max-width: 47px;
+  min-height: 20px;
+  min-width: 24px;
+  */
+  text-align: center;
+  width: 32px;
+}
+
+.msg-details {
+  float: left;
+  max-width: 730px;
+  padding: 0 0 0 2%;
+  width: 88%;
+}
+
+.msg-text {
+  color: #3f4855;
+  font: 14px 'Droid Serif', serif;
+  line-height: 1.3em;
+  margin-bottom: 0.75em;
+}
+
+.avatar {
+  float: left;
+  margin-right: 0.75em;
+  max-height: 38px;
+  max-width: 38px;
+  min-height: 20px;
+  min-width: 20px;
+  width: 7%;
+}
+
+.msg-text a, .msga-text a {
+  color: #db4430;
+  text-decoration: none;
+}
+
+.msga-text {
+  color: #7d7d7d;
+  font-family: "Droid Sans", serif;
+  font-size: 13px;
+  padding-top: 1.25%;
+}
+
+.author {
+  color: #db4330;
+}
+
+#more-posts {
+  background-color: #f4f4f4;
+  border: 1px solid #e9e9e9;
+  border-radius: 0 0 10px 10px;
+  color: #9d9d9d;
+  cursor: pointer;
+  /*font: 12px "Droid Serif", serif;*/
+  font: 11px "Droid Serif", serif;
+  /*height: 56px;*/
+  height: 40px;
+  letter-spacing: 0.3em;
+  line-height: 40px;
+  /*line-height: 56px;*/
+  margin: 0 auto;
+  max-height: 56px;
+  max-width: 348px;
+  min-height: 40px;
+  max-height: 56px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 70%;
+}
+
+.site-footer {
+  background: transparent url(../images/grunge-footer.gif) repeat 0 0;
+  font: 14px 'Droid Sans', sans-serif;
+  padding: 14px 0 0;
+  text-align: center;
+}
+
+.site-footer .container {
+  margin: 0 auto;
+  max-width: 580px;
+  width: 97%;
+}
+
+.broad {
+  margin: 0 auto 0.8em;
+  max-width: 520px;
+  width: 100%;
+}
+
+.social-disclaimer {
+  display: table;
+  width: 100%;
+}
+
+.left-side {
+  display: table-cell;
+  padding: 3px 10px 0 0;
+  vertical-align: top;
+  width: 46px;
+}
+.right-side {
+  display: table-cell;
+  padding: 3px 0 0 10px;
+  vertical-align: top;
+  width: 46px;
+}
+.social-link {
+  display: block;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}
+.sl-facebook {
+  background: transparent url(../images/facebook-icon.png) no-repeat 0 0;
+  float: right;
+  height: 27px;
+  width: 30px;
+}
+.sl-twitter {
+  background: transparent url(../images/twitter-icon.png) no-repeat 0 0;
+  float: left;
+  height: 26px;
+  width: 31px;
+}
+
+.rules {
+  color: #545454;
+  display: table-cell;
+  float: left;
+  font-size: 12px;
+  margin: 0 0 18px;
+  min-width: 198px;
+  padding-top: 9px;
+  width: 100%;
+}
+
+.rules .divider {
+  padding: 0 0.5em;
+}
+
+.directive {
+  font-weight: 700;
+  text-shadow: 1px 1px 1px #fff;
+}
+
+.warning {
+  text-shadow: 1px 1px 1px #fff;
+  text-transform: uppercase;
+}
+
+.info {
+  background: #e2e1de;
+  border-radius: 5px 5px 0 0;
+  clear: both;
+  color: #969696;
+  font-size: 11px;
+  margin: 0 auto;
+  max-width: 531px;
+  padding: 1em;
+  text-align: center;
+  width: 85%;
+}
+
+.info a {
+  color: #db4430;
+  text-decoration: none;
+}
+.info a:hover {
+  text-decoration: underline;
+}
+
+.info .divider {
+  padding: 0 0.5em;
+}
+
+@media only screen and (max-width: 479px) {
+  .rules {
+    margin-bottom: 0;
+    padding-top: 3px;
+  }
+  .filter {
+    font-size: 11px;
+  }
+  .rules .divider {
+    display: none;
+  }
+  .directive {
+    display: block;
+  }
+  .msg-details {
+    padding: 0 0 0 7%;
+    width: 83%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  #logo {
+    max-height: 82px;
+    max-width: 82px;
+  }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+  .filters {
+    height: 49px;
+  }
+  .filter {
+    font-size: 16px;
+    height: 42px;
+    line-height: 42px;
+    top: -7px;
+  }
+  .current-filter {
+    height: 71px;
+    line-height: 64px;
+    top: -4px;
+  }
+  .msg {
+    padding: 1.5em 0;
+  }
+  .msg-text {
+    font-size: 20px;
+  }
+  .msga-text {
+    font-size: 17px;
+  }
+  .msg-details {
+    padding: 0 0 0 4%;
+    width: 86%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  #logo {
+    height: 164px;
+    width: 166px;
+  }
+  .filters {
+    height: 64px;
+  }
+  .filter {
+    font-size: 18px;
+    height: 56px;
+    line-height: 56px;
+    top: -13px;
+  }
+  .current-filter {
+    height: 98px;
+    line-height: 88px;
+    top: -8px;
+  }
+  .msgs {
+    padding-top: 2em;
+  }
+  .msg {
+    padding: 2em 0;
+  }
+  .msg-text {
+    font-size: 26px;
+    line-height: 1.3em;
+  }
+  .msga-text {
+    font-size: 20px;
+  }
+  .rules {
+    font-size: 14px;
+  }
+  .info {
+    font-size: 14px;
+  }
+  .love-button {
+    height: 39px;
+    font-size: 13px;
+    line-height: 34px;
+    width: 47px;
+  }
+}
+
+
+
+@media only screen and (min-width: 1024px) {
+  #logo {
+    margin-bottom: 70px;
+  }
+}
+
+
+
+#comment-form {
+  display: none;
+}
+
+.minifield {
+  display: none;
+  height: auto;
+  padding: 0;
+}
+

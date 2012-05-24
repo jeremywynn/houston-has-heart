@@ -1,0 +1,58 @@
+div.stage
+  div.main(role='main')
+    section.mainmast.cf
+      img(src='images/photos/photo1.jpg', alt='', id='mm-bg')
+      div.logo-wrapper
+        img(src='images/hhh-logo.png', alt='Houston Has Heart', id='logo')
+      div#compose.compose
+        div.composer
+          form#comment-form(method='post', action='/')
+            textarea.comment-editor(maxlength='200', name="comment")
+            textarea.comment-editor.minifield(maxlength='200', name="name")
+            textarea.comment-editor.minifield(maxlength='200', name="email") 
+            button.submit-comment(type='submit') Submit Comment
+        button#share-love.main-btn(type='button') Share your love for Houston
+      div.filters
+        div#recent-love.filter.current-filter
+          span.filter-label Recent Love
+        div#most-loved.filter
+          span.filter-label Most Loved
+        div#search-tags.filter
+          span.filter-label Search Tags
+    section.communications
+      section.msgs
+        - each comment in comments
+          div.msg.cf
+            div.left-pane
+              button.love-button(id='love-id-#{comment._id}', type='button', data-love-id='#{comment._id}') #{comment.loves}
+            div.msg-details
+              div.msg-text= comment.text
+              div.msg-authorship
+                img.avatar(src='http://www.gravatar.com/avatar/#{comment.gravHash}?s=38', alt='')
+                div.msga-text
+                  span.author= comment.name
+                  |  - #{comment.formattedDate}
+        div#more-posts Load More Posts
+  footer.site-footer
+    div.container
+      div.broad
+        div.social-disclaimer.cf
+          div.left-side
+            a.social-link.sl-facebook(href='')Facebook
+          div.rules
+            span.directive Nothing but love y’all
+            span.divider |
+            span.warning Offensive posts will be deleted
+          div.right-side
+            a.social-link.sl-twitter(href='')Twitter
+      div.info
+        a(href='') Made by Always Creative
+        span.divider |
+        a(href='') About This App
+        span.divider |
+        a(href='') Privacy Policy
+script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+script
+  window.jQuery || document.write('<script src="javascripts/jquery-1.7.2.min.js"><\\/script>')
+script(src='javascripts/plugins.js')
+script(src='javascripts/script.js')
