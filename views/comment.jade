@@ -1,10 +1,11 @@
-div.msg
-  div.left-pane
-    button.love-button(id='love-id-#{comment._id}', type='button', data-love-id='#{comment._id}') #{comment.loves}
-  div.msg-details
-    div.msg-text= comment.text
-    div.msg-authorship
-      img.avatar(src='http://www.gravatar.com/avatar/#{comment.gravHash}?s=38', alt='')
-      div.msga-text
-        span.author= comment.name
-        |  - #{comment.formattedDate}
+- each comment in comments
+  div.msg.cf(id='comment-id-#{comment._id}')
+    div.left-pane
+      button.love-button(id='love-id-#{comment._id}', type='button', data-love-id='#{comment._id}') #{comment.loves}
+    div.msg-details
+      div.msg-text!= comment.text
+      div.msg-authorship
+        img.avatar(src='#{comment.avatar}', alt='')
+        div.msga-text
+          span.author= comment.name
+          |  - #{comment.formattedDate}
