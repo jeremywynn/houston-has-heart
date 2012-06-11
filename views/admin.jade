@@ -1,0 +1,10 @@
+div.stage
+  div.main(role='main')
+    section.mainmast.cf
+      img(src='/images/photos/photo1.jpg', alt='', id='mm-bg')
+      div.logo-wrapper
+        img(src='/images/hhh-logo.png', alt='Houston Has Heart', id='logo')
+    section.communications
+      form.cf(method='post', action='/admin')
+        button(type='submit', class='submit') Submit
+        != partial('comment-admin')
