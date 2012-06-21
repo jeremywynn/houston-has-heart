@@ -4,48 +4,54 @@ div.stage
       img(src='/images/photos/photo1.jpg', alt='', id='mm-bg')
       div.logo-wrapper
         img(src='/images/hhh-logo.png', alt='Houston Has Heart', id='logo')
-      div#compose.compose.cf
+      div.commenting
         - if (!everyauth.loggedIn)
-          div#post-options.post-options.cf
-            a#twitter-post.login-option(href='/auth/twitter') Post with Twitter
-            a#facebook-post.login-option(href='/auth/facebook') Post with Facebook
-            a#guest-post.login-option(href='#') post as guest
-            // button#twitter-login.login-option(type='button') Post with Twitter
-            // button#facebook-login.login-option(type='button') Post with Facebook
-            // button#guest-login.login-option(href='') post as guest
-        div.composer
-          - if (everyauth.loggedIn)
-            form#comment-form.cf(method='post', action='/')
-              textarea#comment-editor.comment-editor(maxlength='200', name='comment', placeholder='Share something you love about H-Town...')
-              div.comment-footer
-                div#login-identity.left-field.cf 
-                  - if (everyauth.twitter)
-                    img.avatar(src='#{everyauth.twitter.user.profile_image_url}', alt='#{everyauth.twitter.user.name}')
-                    span.commenter-name #{everyauth.twitter.user.name} 
-                    span.logout
-                      a(href='/logout') Logout
-                  - if (everyauth.facebook)
-                    img.avatar(src='http://graph.facebook.com/#{everyauth.facebook.user.username}/picture', alt='#{everyauth.facebook.user.name}')
-                    span.commenter-name #{everyauth.facebook.user.name} 
-                    span.logout
-                      a(href='/logout') Logout
-                button.submit-comment(type='submit') Submit Comment
-          form#guest-form.cf(method='post', action='/')
-            input.guest-field(type='text', name='name', placeholder='Name')
-            input.guest-field(type='email', name='email', placeholder='Email')
-            textarea#comment-editor.comment-editor(maxlength='200', name='comment', placeholder='Share something you love about H-Town...')
-            div.comment-footer
-              div.left-field.guest-disc.cf All guests posts are held for moderation. If you wish to post using a different method, 
-                a#guest-refuse(href='#') click here
-                .
-              button.submit-comment(type='submit') Submit Comment
-        button#share-love.main-btn(type='button') Share your love for Houston
+          div.process-intro
+            img#identity(src='/images/hhh-text.png', alt='Houston Has Heart')
+            button#share-love.main-btn(type='button') Share your love for Houston
+          div.posting-info.cf
+            div.instructions Choose your login type to share your love:
+            div#post-options.post-options.cf
+              a#twitter-post.login-option.cf(href='/auth/twitter')
+                img(src='/images/twitter-graphic.png', alt='')
+                span Twitter
+              a#facebook-post.login-option(href='/auth/facebook')
+                img(src='/images/facebook-graphic.png', alt='')
+                span Facebook
+              a#guest-post.login-option(href='#')
+                img(src='/images/guest-graphic.png', alt='')
+                span Guest
+          div#compose.compose.cf
+            != partial('forms/guest-form')
+        - else
+          - if (hasPosted == true)
+            div.process-intro
+              img#identity(src='/images/hhh-text.png', alt='Houston Has Heart')
+              button#share-love.main-btn(type='button') Share more love for Houston
+            div#has-posted.compose.cf!= partial('forms/loggedin-form')
+          - else
+            div#transient-intro.process-intro
+              img#identity(src='/images/hhh-text.png', alt='Houston Has Heart')
+              button#share-love.main-btn(type='button') Share more love for Houston
+            div.compose.cf!= partial('forms/loggedin-form')
       div.filters
         a#recent-love.filter(href='/')
           span.filter-label Recent Love
         a#most-loved.filter(href='/most-loved')
           span.filter-label Most Loved
         a#search-tags.filter.current-filter(href='/search')
-          span.filter-label Search Tags
+          span.filter-label Tags
     section.communications
-      section.msgs What should go here?
+      div.main-container
+        div.content-head.cf
+          form#comment-search.form-search(action='/search')
+            input#search-query.search-input(type='text', placeholder='Search tags', name='q', autocomplete='off')
+            button.search(type='submit') Search
+          div.results Comments with tags
+        section.msgs
+          - if (comments.length > 0)
+            != partial('comments/comment')
+          - else 
+            p No comments with tags were found.
+!= partial('footer')
+script(src='/javascripts/tags.js')

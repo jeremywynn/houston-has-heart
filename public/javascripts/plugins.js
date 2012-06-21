@@ -1,94 +1,96 @@
 /*
- * jQuery autoResize (textarea auto-resizer)
- * @copyright James Padolsey http://james.padolsey.com
- * @version 1.04
- */
+ Form Sentinel - jQuery Form Validator Plugin
+*/
 
-(function($){
-    
-    $.fn.autoResize = function(options) {
-        
-        // Just some abstracted details,
-        // to make plugin users happy:
-        var settings = $.extend({
-            onResize : function(){},
-            animate : true,
-            animateDuration : 150,
-            animateCallback : function(){},
-            extraSpace : 20,
-            limit: 1000
-        }, options);
-        
-        // Only textarea's auto-resize:
-        this.filter('textarea').each(function(){
-            
-                // Get rid of scrollbars and disable WebKit resizing:
-            var textarea = $(this).css({resize:'none','overflow-y':'hidden'}),
-            
-                // Cache original height, for use later:
-                origHeight = textarea.height(),
-                
-                // Need clone of textarea, hidden off screen:
-                clone = (function(){
-                    
-                    // Properties which may effect space taken up by chracters:
-                    var props = ['height','width','lineHeight','textDecoration','letterSpacing'],
-                        propOb = {};
-                        
-                    // Create object of styles to apply:
-                    $.each(props, function(i, prop){
-                        propOb[prop] = textarea.css(prop);
-                    });
-                    
-                    // Clone the actual textarea removing unique properties
-                    // and insert before original textarea:
-                    return textarea.clone().removeAttr('id').removeAttr('name').css({
-                        position: 'absolute',
-                        top: 0,
-                        left: -9999
-                    }).css(propOb).attr('tabIndex','-1').insertBefore(textarea);
-          
-                })(),
-                lastScrollTop = null,
-                updateSize = function() {
-          
-                    // Prepare the clone:
-                    clone.height(0).val($(this).val()).scrollTop(10000);
-          
-                    // Find the height of text:
-                    var scrollTop = Math.max(clone.scrollTop(), origHeight) + settings.extraSpace,
-                        toChange = $(this).add(clone);
-            
-                    // Don't do anything if scrollTip hasen't changed:
-                    if (lastScrollTop === scrollTop) { return; }
-                    lastScrollTop = scrollTop;
-          
-                    // Check for limit:
-                    if ( scrollTop >= settings.limit ) {
-                        $(this).css('overflow-y','');
-                        return;
-                    }
-                    // Fire off callback:
-                    settings.onResize.call(this);
-          
-                    // Either animate or directly apply height:
-                    settings.animate && textarea.css('display') === 'block' ?
-                        toChange.stop().animate({height:scrollTop}, settings.animateDuration, settings.animateCallback)
-                        : toChange.height(scrollTop);
-                };
-            
-            // Bind namespaced handlers to appropriate events:
-            textarea
-                .unbind('.dynSiz')
-                .bind('keyup.dynSiz', updateSize)
-                .bind('keydown.dynSiz', updateSize)
-                .bind('change.dynSiz', updateSize);
-            
+(function($) {
+
+  var formSentinel = {
+    rules: {
+      required: /./,
+      requiredNotWhitespace: /\S/,
+      positiveInteger: /^\d*[1-9]\d*$/,
+      positiveOrZeroInteger: /^\d+$/,
+      integer: /^-?\d+$/,
+      decimal: /^-?\d+(\.\d+)?$/,
+      email: /^[\w\.\-]+@([\w\-]+\.)+[a-zA-Z]+$/,
+      telephone: /^(\+\d+)?( |\-)?(\(?\d+\)?)?( |\-)?(\d+( |\-)?)*\d+$/
+    },
+    init: function(form) {
+      var fields = form.elements;
+      for (var i = 0; i < fields.length; i++) {
+        if ($(fields[i]).val() != '') {
+          formSentinel.fieldListener(fields[i]);
+        }
+        $(fields[i]).bind('blur', function() {
+          formSentinel.fieldListener(this);
         });
-        
-        // Chain:
-        return this;
-        
-    };
-    
+        $(fields[i]).bind('focus', function() {
+          var self = $(this);
+          if (self.hasClass('invalid') || self.hasClass('valid')) {
+            self.bind('keyup', function() {
+              formSentinel.fieldListener(this);
+            });
+          }
+        });
+      }
+      $(form).submit(function () {
+        formSentinel.submitListener(this);
+        return false;
+      });
+    },
+    fieldListener: function(field) {
+      var className = field.className;
+      var classRegExp = /(^| )(\S+)( |$)/g;
+      var classResult;
+      while (classResult = classRegExp.exec(className)) {
+        var oneClass = classResult[2];
+        var rule = this.rules[oneClass];
+        if (typeof rule != "undefined") {
+          if (!rule.test(field.value)) {
+            $(field).addClass('invalid').removeClass('valid');
+          }
+          else {
+            $(field).addClass('valid').removeClass('invalid');
+          }
+        }
+      }
+    },
+    submitListener: function(form) {
+      var failure = false;
+      var fields = form.elements;
+      for (var i = 0; i < fields.length; i++) {
+        var className = fields[i].className;
+        var classRegExp = /(^| )(\S+)( |$)/g;
+        var classResult;
+        while (classResult = classRegExp.exec(className)) {
+          var oneClass = classResult[2];
+          var rule = this.rules[oneClass];
+          if (typeof rule != "undefined") {
+            if (!rule.test(fields[i].value)) {
+              if (!$(fields[i]).hasClass('invalid')) {
+                fields[i].className += ' invalid';
+              }
+              failure = true;
+            }
+          }
+        }
+      }
+      $('.invalid').effect('shake', {distance: 5, times: 2}, 50);
+      if (failure) {
+        return false;
+      }
+      else {
+        form.submit();
+      }
+    }
+  }
+
+  $.fn.formSentinel = function() {
+      
+    return this.each(function() {
+      formSentinel.init(this);
+    });
+
+  };
+  
 })(jQuery);

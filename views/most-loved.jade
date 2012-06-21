@@ -4,71 +4,45 @@ div.stage
       img(src='/images/photos/photo1.jpg', alt='', id='mm-bg')
       div.logo-wrapper
         img(src='/images/hhh-logo.png', alt='Houston Has Heart', id='logo')
-      div#compose.compose.cf
+      div.commenting
         - if (!everyauth.loggedIn)
-          div#post-options.post-options.cf
-            a#twitter-post.login-option(href='/auth/twitter') Post with Twitter
-            a#facebook-post.login-option(href='/auth/facebook') Post with Facebook
-            a#guest-post.login-option(href='#') post as guest
-            // button#twitter-login.login-option(type='button') Post with Twitter
-            // button#facebook-login.login-option(type='button') Post with Facebook
-            // button#guest-login.login-option(href='') post as guest
-        div.composer
-          - if (everyauth.loggedIn)
-            form#comment-form.cf(method='post', action='/')
-              textarea#comment-editor.comment-editor(maxlength='200', name='comment', placeholder='Share something you love about H-Town...')
-              div.comment-footer
-                div#login-identity.left-field.cf 
-                  - if (everyauth.twitter)
-                    img.avatar(src='#{everyauth.twitter.user.profile_image_url}', alt='#{everyauth.twitter.user.name}')
-                    span.commenter-name #{everyauth.twitter.user.name} 
-                    span.logout
-                      a(href='/logout') Logout
-                  - if (everyauth.facebook)
-                    img.avatar(src='http://graph.facebook.com/#{everyauth.facebook.user.username}/picture', alt='#{everyauth.facebook.user.name}')
-                    span.commenter-name #{everyauth.facebook.user.name} 
-                    span.logout
-                      a(href='/logout') Logout
-                button.submit-comment(type='submit') Submit Comment
-          form#guest-form.cf(method='post', action='/')
-            input.guest-field(type='text', name='name', placeholder='Name')
-            input.guest-field(type='email', name='email', placeholder='Email')
-            textarea#comment-editor.comment-editor(maxlength='200', name='comment', placeholder='Share something you love about H-Town...')
-            div.comment-footer
-              div.left-field.guest-disc.cf All guests posts are held for moderation. If you wish to post using a different method, 
-                a#guest-refuse(href='#') click here
-                .
-              button.submit-comment(type='submit') Submit Comment
-        button#share-love.main-btn(type='button') Share your love for Houston
+          div.process-intro
+            img#identity(src='/images/hhh-text.png', alt='Houston Has Heart')
+            button#share-love.main-btn(type='button') Share your love for Houston
+          div.posting-info.cf
+            div.instructions Choose your login type to share your love:
+            div#post-options.post-options.cf
+              a#twitter-post.login-option.cf(href='/auth/twitter')
+                img(src='images/twitter-graphic.png', alt='')
+                span Twitter
+              a#facebook-post.login-option(href='/auth/facebook')
+                img(src='images/facebook-graphic.png', alt='')
+                span Facebook
+              a#guest-post.login-option(href='#')
+                img(src='images/guest-graphic.png', alt='')
+                span Guest
+          div#compose.compose.cf
+            != partial('forms/guest-form')
+        - else
+          - if (hasPosted == true)
+            div.process-intro
+              img#identity(src='/images/hhh-text.png', alt='Houston Has Heart')
+              button#share-love.main-btn(type='button') Share more love for Houston
+            div#has-posted.compose.cf!= partial('forms/loggedin-form')
+          - else
+            div#transient-intro.process-intro
+              img#identity(src='/images/hhh-text.png', alt='Houston Has Heart')
+              button#share-love.main-btn(type='button') Share more love for Houston
+            div.compose.cf!= partial('forms/loggedin-form')
       div.filters
         a#recent-love.filter(href='/')
           span.filter-label Recent Love
         a#most-loved.filter.current-filter(href='/most-loved')
           span.filter-label Most Loved
-        div#search-tags.filter
-          span.filter-label Search Tags
+        a#search-tags.filter(href='/search')
+          span.filter-label Tags
     section.communications
-      section.msgs!= partial('comment')
-  footer.site-footer
-    div.container
-      div.broad
-        div.social-disclaimer.cf
-          div.left-side
-            a.social-link.sl-facebook(href='')Facebook
-          div.rules
-            span.directive Nothing but love y’all
-            span.divider |
-            span.warning Offensive posts will be deleted
-          div.right-side
-            a.social-link.sl-twitter(href='')Twitter
-      div.info
-        a(href='') Made by Always Creative
-        span.divider |
-        a(href='') About This App
-        span.divider |
-        a(href='') Privacy Policy
-script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
-script
-  window.jQuery || document.write('<script src="javascripts/jquery-1.7.2.min.js"><\\/script>')
-script(src='javascripts/plugins.js')
-script(src='javascripts/script.js')
+      div.main-container
+        section.msgs!= partial('comments/comment')
+!= partial('footer')
+script(src='/javascripts/most-loved.js')

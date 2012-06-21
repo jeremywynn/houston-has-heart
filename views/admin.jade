@@ -4,7 +4,70 @@ div.stage
       img(src='/images/photos/photo1.jpg', alt='', id='mm-bg')
       div.logo-wrapper
         img(src='/images/hhh-logo.png', alt='Houston Has Heart', id='logo')
-    section.communications
-      form.cf(method='post', action='/admin')
-        button(type='submit', class='submit') Submit
-        != partial('comment-admin')
+    section.admin-section
+      div.main-container
+        a.btn.btn-inverse.admin-logout(href='/logout-admin') Logout
+        h2 HHH Admin Dashboard
+        h3 Comments
+        div.admin-nav
+          a.btn(href='/admin') All
+          a.btn(href='/admin/unapproved') Waiting for Approval
+        - var flashTypes = ['info', 'error']
+          each flashType in flashTypes
+            if flash[flashType]
+              p.flash(class=flashType)
+                = flash[flashType]
+        form.admin-comments.cf(method='post', action='/admin')
+          - if (pages)
+          div.pagination
+            ul
+              - if (prevPage)
+                li
+                  a(href='#{hrefFragment}?page=#{prevPage}') &laquo;
+              - if (firstPage)
+                li
+                  a(href='#{hrefFragment}?page=1') 1
+              - each page in pages
+                - if (page == '...')
+                  li.disabled
+                    a ...
+                - else if (currentPage == page)
+                  li.disabled
+                    a.current-page #{page}
+                - else
+                  li
+                    a(href='#{hrefFragment}?page=#{page}') #{page}
+              - if (lastPage)
+                li
+                  a(href='#{hrefFragment}?page=#{lastPage}') #{lastPage}
+              - if (nextPage)
+                li
+                  a(href='#{hrefFragment}?page=#{nextPage}') &raquo;
+          button.btn.btn-large.submit(type='submit') Administer Changes
+          != partial('comments/comment-admin')
+          - if (pages)
+          div.pagination
+            ul
+              - if (prevPage)
+                li
+                  a(href='#{hrefFragment}?page=#{prevPage}') &laquo;
+              - if (firstPage)
+                li
+                  a(href='/admin/?page=1') 1
+              - each page in pages
+                - if (page == '...')
+                  li.disabled
+                    a ...
+                - else if (currentPage == page)
+                  li.disabled
+                    a.current-page #{page}
+                - else
+                  li
+                    a(href='#{hrefFragment}?page=#{page}') #{page}
+              - if (lastPage)
+                li
+                  a(href='#{hrefFragment}?page=#{lastPage}') #{lastPage}
+              - if (nextPage)
+                li
+                  a(href='#{hrefFragment}?page=#{nextPage}') &raquo;
+          button.btn.btn-large.submit(type='submit') Administer Changes

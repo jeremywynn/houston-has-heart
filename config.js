@@ -1,8 +1,16 @@
 // Configuration Module
 
 var express = require('express');
+var RedisStore = require('connect-redis')(express);
 var everyauth = require('everyauth');
 var Promise = everyauth.Promise;
+
+var url = require('url');
+
+var redis = require('redis').createClient(9445, 'cod.redistogo.com');
+redis.auth('d31c1b1a75eff8654ef6bf37796d3a4d', function() {
+  console.log('Connected to RedisToGo!');
+});
 
 module.exports = function(hhh) {
   hhh.configure(function() {
@@ -12,7 +20,12 @@ module.exports = function(hhh) {
     hhh.use(express.bodyParser());
     hhh.use(express.methodOverride());
     hhh.use(express.cookieParser());
-    hhh.use(express.session({ secret: "houstonhashearttraehsahnotsuohalwayscreativecorbenjeffjeremyroby" }));
+    hhh.use(express.session({
+      secret: "houstonhashearttraehsahnotsuohalwayscreativecorbenjeffjeremyroby",
+      store: new RedisStore({
+        client: redis
+      })
+    }));
     hhh.use(everyauth.middleware());
     hhh.use(hhh.router);
     hhh.use(express.static(__dirname + '/public'));

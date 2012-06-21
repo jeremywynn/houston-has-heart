@@ -1,124 +1,96 @@
-
 /**
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  //, mongoose = require('mongoose')
-  //, Schema = mongoose.Schema
-  , moment = require('moment')
-  , crypto = require('crypto')
-  //, ObjectId = Schema.ObjectId // Review necessity of this
-  , RedisStore = require('connect-redis')(express);
+var express = require('express');
+var moment = require('moment');
+var util = require('util');
+var everyauth = require('everyauth');
+var Promise = everyauth.Promise;
 
-var CommentProvider = require('./comment-provider').CommentProvider;
+var hhh = module.exports = express.createServer();
 
-var app = module.exports = express.createServer();
-
-// Configuration
-
-//require('./apps/socket-io')(app);
-
-app.configure(function(){
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
-  app.set('port', 3000);
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
-});
-
-app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
-
-app.configure('test', function(){
-  app.set('port', 3001);
-});
-
-app.configure('production', function(){
-  app.use(express.errorHandler());
-});
-
-var commentProvider = new CommentProvider('localhost', 27017);
-
-var socketIO;
-socketIO = require('socket.io').listen(app);
-if (!app.settings.socketIO) {
-  app.set;
-}
-
-// Log to the console to show when a client has connected
-socketIO.sockets.on("connection", function(socket) {
-  console.log('CONNECTED');
-});
-
-/*  // This Works!
-socketIO.sockets.on("connection", function(socket) {
-  setTimeout(function(){
-    socket.send("Hello! From your server.");
-  }, 3000);
-});
-*/
-
-var trimWhiteSpace = function(str) {
-  return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-}
-
-// Routes
-
-
-app.get('/', function(req, res){
-
-  //var commentProvider = new CommentProvider();
-  commentProvider.findAll(function(error,docs){
-    for (var i = 0; i < docs.length; i++) {
-      docs[i]['formattedDate'] = moment(docs[i]['createdAt']).format('MMMM D, YYYY');
-      docs[i]['email'] = trimWhiteSpace(docs[i]['email']);
-      docs[i]['gravHash'] = crypto.createHash('md5').update(docs[i]['email']).digest('hex');
-    }
-    
-    res.render('index', {
-      locals: {
-        title: 'Houston Has Heart',
-        comments: docs
-      }
-    });
-  });
-});
-
-
-app.post('/post', function(req, res){
-  commentProvider.save({
-    //_id: 56416546,
-    text: req.param('comment'),
-    name: req.param('name'),
-    email: req.param('email')
-  }, function( error, docs) {
-    socketIO.sockets.emit('comments:changed', docs);
-    res.end();
-  });
-});
-
-app.post('/love', function(req, res){
-  
-  commentProvider.saveLove(req.param('commentId'), function(error, docs) {
-    socketIO.sockets.emit('loves:changed', docs);
-    res.end();
-  });
-
-});
-
-//app.get('/', routes.index);
+// SocketIO
+var socketIO = require('socket.io').listen(hhh);
+//socketIO.configure('production', function() {
+  socketIO.set('log level', 1);
+//});
 
 /*
-app.get('/post', function() {
-  // use the db here
-});
+if (!hhh.settings.socketIO) {
+  hhh.set;
+}
 */
 
-app.listen(3000, function(){
-  console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+everyauth.twitter
+  .consumerKey('bgsBEd5tZ8h3O0kOTYYO9w')
+  .consumerSecret('lFe3UhUSPhG5k0Ucm0D5OYF5KeMfYTqo8bk5rIfruw4')
+  .handleAuthCallbackError(function (req, res) {
+    res.redirect('/');
+  })
+  .findOrCreateUser(function(session, token, secret, user) {
+    var promise = this.Promise().fulfill(user);
+    return promise;
+  })
+  .redirectPath('/');
+
+everyauth.facebook
+  .appId('414819458549939')
+  .appSecret('35da31e3f48afd8a26fcb615f2ae8a4a')
+  .handleAuthCallbackError(function (req, res) {
+    res.redirect('/');
+  })
+  .findOrCreateUser(function (session, accessToken, accessTokExtra, fbUserMetadata) {
+    var promise = this.Promise().fulfill(fbUserMetadata);
+    return promise;
+  })
+  .redirectPath('/');
+
+everyauth.helpExpress(hhh);
+
+// Configuration
+require('./config')(hhh, everyauth);
+
+// Models
+
+var CommentProvider = require('./models/comments').Comments;
+var commentProvider = new Comments('flame.mongohq.com', 27043);
+
+/*
+var CommentProvider = require('./models/comments').Comments;
+var commentProvider = new Comments('localhost', 27017);
+*/
+
+// Controllers
+require('./controllers/comment-controller')(hhh, socketIO, commentProvider);
+require('./apps/admin/admin')(hhh, socketIO);
+require('./apps/authentication/auth')(hhh);
+
+// Helpers
+require('./apps/helpers')(hhh);
+
+// Routes
+// Serves the About Page
+hhh.get('/about', function(req, res) {
+  res.render('about', {
+    locals: {
+      title: 'Houston Has Heart'
+    }
+  });
+});
+// Serves the Privacy Page
+hhh.get('/privacy', function(req, res) {
+  res.render('privacy', {
+    locals: {
+      title: 'Houston Has Heart'
+    }
+  });
+});
+// 404 Page
+hhh.use(function(req, res, next){
+  res.render('404.jade', {title: "404 - Page Not Found", showFullNav: false, status: 404, url: req.url });
+});
+
+hhh.listen(3000, function() {
+  console.log("Express server listening on port %d in %s mode", hhh.address().port, hhh.settings.env);
 });
