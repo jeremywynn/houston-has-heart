@@ -32,10 +32,11 @@
     "node-dev": "~0.2.2",
     "request": "~2.9.202"
   },
-  "engine": {
-    "node": ">=0.6"
+  "engines": {
+    "node": "v0.6.x"
   },
   "scripts": {
     "start": "node app.js"
-  }
+  },
+  "subdomain": "houstonhasheart"
 }
