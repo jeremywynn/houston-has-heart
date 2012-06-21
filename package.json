@@ -2,7 +2,7 @@
   "name": "Houston Has Heart",
   "version": "0.9.0",
   "author": "Always Creative",
-  "description": "A platform to share what users love about Houston through comments & tags.",
+  "description": "A platform to share what users love about Houston through comments and tags.",
   "private": true,
   "contributors": [
     {
@@ -25,7 +25,7 @@
     "moment": "~1.6.2",
     "socket.io": "~0.9.6",
     "everyauth": "~0.2.32",
-    "validator": "~0.4.6-3",
+    "validator": "~0.4.6-3"
   },
   "devDependencies": {
     "mocha": "~1.0.3",
