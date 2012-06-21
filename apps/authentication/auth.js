@@ -10,12 +10,34 @@ var ObjectID = require('mongodb').ObjectID;
 var crypto = require('crypto');
 var salt = 'corbenjeffjeremyroby';
 
+var url = require('url');
+
+/*
 var Users = function(host, port) {
   this.db= new Db('houston-has-heart', new Server(host, port, { auto_reconnect: true }, {}));
   this.db.open(function(){});
 };
+*/
 
-var userProvider = new Users('localhost', 27017);
+var Users = function(host, port) {
+
+  var connectionUri = url.parse('mongodb://nodejitsu:d0530585ff2c5aea9e42e93c48d71603@flame.mongohq.com:27043/nodejitsudb330279266270');
+  //onsole.log(connectionUri);
+  //console.log(connectionUri.pathname.replace(/^\//, ''));
+
+  var _parent = this;
+  this.db= new Db('nodejitsudb330279266270', new Server(host, port, { auto_reconnect: true }, {}));
+  this.db.open(function(error) {
+    _parent.db.authenticate('nodejitsu', 'd0530585ff2c5aea9e42e93c48d71603', function(error) {
+      if (error) {
+        console.log(error);
+      }
+    });
+  });
+};
+
+//var userProvider = new Users('localhost', 27017);
+var userProvider = new Users('flame.mongohq.com', 27043);
 
 Users.prototype.getCollection = function(callback) {
   this.db.collection('users', function(error, collection) {
@@ -69,6 +91,10 @@ module.exports = function (hhh) {
 
       var passHash = crypto.createHmac('sha256', salt).update(sanitizedPass).digest('hex');
       userProvider.verifyUser(sanitizedUser, function(error, docs) {
+        if (error) {
+          console.log(error);
+          return;
+        }
         if (docs && passHash === docs.password) {
           req.session.user = docs.username;
           res.redirect('/admin');
