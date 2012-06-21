@@ -1,0 +1,14 @@
+form#guest-form.comment-form.cf(method='post', action='/post')
+  input#name-field.guest-field(type='text', name='name', placeholder='Name', required)
+  input#email-field.guest-field(type='email', name='email', placeholder='Email', required)
+  div.composer
+    textarea#guest-comment-editor.comment-editor(maxlength='200', name='comment', placeholder='Share something you love about H-Town...', required)
+  div.comment-footer.cf
+    div.left-field.guest-disc.cf
+      img.avatar(src='/images/guest-avatar.jpg', alt='Guest Avatar')
+      span.commenter-name Guest
+      span.logout
+        a(href='/logout') Go Back
+    div.right-field.cf
+      button#submit-comment.submit-comment.disabled(type='submit') Submit
+      span.chars-left 200

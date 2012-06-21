@@ -1,0 +1,14 @@
+@media only screen and (max-width: 767px) {
+  .current-filter {
+    margin-right: 4px;
+  }
+  .love-button {
+    background: #db3e29;
+  }
+  .unloved.love-button {
+    background: #f0f0f0;
+  }
+}
+#search-tags {
+  margin-left: 4px;
+}

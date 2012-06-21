@@ -1,0 +1,20 @@
+if (comments)
+  - each comment in comments
+    div.msg.cf(id='comment-id-#{comment._id}', data-comment-id='#{comment._id}')
+      div.left-pane
+        - if (comment.loves == 0)
+          button.love-button.unloved(id='love-id-#{comment._id}', type='button', data-love-id='#{comment._id}')
+        - else
+          button.love-button(id='love-id-#{comment._id}', type='button', data-love-id='#{comment._id}') #{comment.loves}
+      div.msg-details
+        div.msg-text!= comment.text
+        div.msg-authorship
+          img.avatar(src='#{comment.avatar}', alt='')
+          div.msga-text
+            - if (comment.authorLink)
+              a(href='#{comment.authorLink}', target='_blank', rel='nofollow')
+                span.author= comment.name
+            - else
+              span.author= comment.name
+            |  -  
+            span.date #{comment.formattedDate}

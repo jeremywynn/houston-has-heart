@@ -1,0 +1,18 @@
+div.stage
+  div.main(role='main')
+    section.mainmast.cf
+      img(src='/images/photos/photo1.jpg', alt='', id='mm-bg')
+      div.logo-wrapper
+        img(src='/images/hhh-logo.png', alt='Houston Has Heart', id='logo')
+    section.login-section.communications
+      div.main-container
+        form.central-form(action='/login', method='post')
+          h2 Login
+          - var flashTypes = ['info', 'error']
+          each flashType in flashTypes
+            if flash[flashType]
+              p.flash(class=flashType)
+                = flash[flashType]
+          input(type='text', name='username', placeholder='Username')
+          input(type='password', name='password', placeholder='Password')
+          button(type='submit') Login

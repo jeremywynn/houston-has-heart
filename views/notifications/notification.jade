@@ -1,0 +1,6 @@
+- if (notification.status == 'positive')
+  div#notification.positive
+    != notification.text
+- else
+  div#notification.negative
+    != notification.text

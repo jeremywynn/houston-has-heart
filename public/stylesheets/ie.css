@@ -1,0 +1,22 @@
+.placeholder { 
+  font-style: italic;
+}
+.chromeframe {
+  background-color: #E7E7E7;
+  margin: 0;
+  padding: 1em 0;
+  text-align: center;
+}
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+  .filter {
+    margin-right: 4px;
+  }
+  .current-filter {
+    margin-right: 0;
+  }
+}
+
+.post-options {
+  padding-left: 19px\9;
+}
