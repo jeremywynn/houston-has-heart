@@ -1,6 +1,6 @@
 {
-  "name": "Houston Has Heart",
-  "version": "0.9.0",
+  "name": "houston-has-heart",
+  "subdomain": "houstonhasheart",
   "author": "Always Creative",
   "description": "A platform to share what users love about Houston through comments and tags.",
   "private": true,
@@ -14,11 +14,17 @@
     "type": "git",
     "url": "https://github.com/merelyjeremy/houston-has-heart.git"
   },
+  "scripts": {
+    "start": "app.js"
+  },
+  "version": "0.9.0-3",
+  "engines": {
+    "node": "0.6.x"
+  },
   "dependencies": {
     "express": "2.5.8",
     "jade": "~0.26.0",
     "mongodb": "~1.0.2",
-    "mongoose": "~2.6.4",
     "redis": "~0.7.2",
     "connect-redis": "~1.3.0",
     "hiredis": "~0.1.14",
@@ -31,12 +37,5 @@
     "mocha": "~1.0.3",
     "node-dev": "~0.2.2",
     "request": "~2.9.202"
-  },
-  "engines": {
-    "node": "v0.6.x"
-  },
-  "scripts": {
-    "start": "node app.js"
-  },
-  "subdomain": "houstonhasheart"
+  }
 }
