@@ -1,12 +1,11 @@
 var searchQuery = window.location.pathname;
-var tagQuery = searchQuery.substr(searchQuery.lastIndexOf('/'));
-var realTagQuery = tagQuery.substr(1);
+var tagQuery = searchQuery.substr(searchQuery.lastIndexOf('/') + 1);
 
 $(function() {
 
   $('#new-comments').live('click', function() {
     setSinceMarker();
-    $.get('/comments/tagged/' + realTagQuery, { since: sinceMarker }, function(data) {
+    $.get('/comments/tagged/' + tagQuery, { since: sinceMarker }, function(data) {
       $('#new-comments, #no-results').remove();
       $('.msgs').prepend(data);
     });
@@ -33,7 +32,7 @@ $(function() {
         $('.compose, #guest-form').hide();
         $('.process-intro').show();
         
-        $.get('/comments/tagged/' + realTag, { since: sinceMarker }, function(data) {
+        $.get('/comments/tagged/' + tagQuery, { since: sinceMarker }, function(data) {
           $('#new-comments, #no-results').remove();
           $('.msgs').prepend(data);
           
@@ -46,7 +45,7 @@ $(function() {
   });
 
   setCursorMarker();
-  $.get('/comments/tagged/' + realTagQuery, { cursor: cursorMarker }, function(data) {
+  $.get('/comments/tagged/' + tagQuery, { cursor: cursorMarker }, function(data) {
     if (data.length > 0) {
       $('.msgs').append('<div class="top-shadow"><div id="more-posts" class="more-posts"><img src="/images/ajax-loader.gif" alt="" id="loading-pic">Load More Posts</div></div>');
     }
@@ -54,11 +53,11 @@ $(function() {
 
   $('#more-posts').live('click', function() {
     setCursorMarker();
-    $.get('/comments/tagged/' + realTagQuery, { cursor: cursorMarker }, function(data) {
+    $.get('/comments/tagged/' + tagQuery, { cursor: cursorMarker }, function(data) {
       if (data.length > 0) {
         $('.msg').last().after(data);
         cursorMarker = $('.msg').last().data('comment-id');
-        $.get('/comments/tagged/' + realTagQuery, { cursor: cursorMarker }, function(data) {
+        $.get('/comments/tagged/' + tagQuery, { cursor: cursorMarker }, function(data) {
           if (data.length < 1) {
             $('#more-posts').remove();
           }
@@ -75,7 +74,7 @@ $(function() {
   socket.on("comments:added", function(data) {
     setSinceMarker();
     if (postDelay !== true) {
-      $.get('/comments/tagged/' + realTagQuery, { since: sinceMarker }, function(data) {
+      $.get('/comments/tagged/' + tagQuery, { since: sinceMarker }, function(data) {
         if (data.length > 0) {
           if ($('#new-comments').length < 1) {
             $('.msgs').prepend('<div id="new-comments">More comments have been made</div>');
