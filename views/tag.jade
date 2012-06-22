@@ -51,7 +51,7 @@ div.stage
             div.results Results for   
               strong
                 - each tag in tags
-                  #{tag} 
+                  | #{tag} 
         section.msgs
           - if (comments.length > 0)
             != partial('comments/comment')
@@ -60,7 +60,7 @@ div.stage
               strong 
                 - if (tags)
                   - each tag in tags
-                    #{tag} 
+                    | #{tag} 
               | were found.
 != partial('footer')
 script(src='/javascripts/tag.js')
