@@ -1,15 +1,9 @@
-var setSinceMarker = function () {
-  return sinceMarker = $('.msg').first().data('comment-id');
-};
-
-var postDelay = false;
-
 $(function() {
 
   $('#new-comments').live('click', function() {
     setSinceMarker();
     $.get('/comments', { since: sinceMarker }, function(data) {
-      $('#new-comments').remove();
+      $('#new-comments, #no-results').remove();
       $('#recent-comments').prepend(data);
     });
   });
@@ -36,7 +30,7 @@ $(function() {
         $('.process-intro').show();
         
         $.get('/comments', { since: sinceMarker }, function(data) {
-          $('#new-comments').remove();
+          $('#new-comments, #no-results').remove();
           $('#recent-comments').prepend(data);
           
           postDelay = false;
@@ -47,7 +41,7 @@ $(function() {
     return false;
   });
 
-  var cursorMarker = $('.msg').last().data('comment-id');
+  setCursorMarker();
   $.get('/comments', { cursor: cursorMarker }, function(data) {
     if (data.length > 0) {
       $('.msgs').append('<div class="top-shadow"><div id="more-posts" class="more-posts"><img src="/images/ajax-loader.gif" alt="" id="loading-pic">Load More Posts</div></div>');
@@ -56,7 +50,7 @@ $(function() {
 
   $('#more-posts').live('click', function() {
     $('#loading-pic').css('display', 'inline-block');
-    var cursorMarker = $('.msg').last().data('comment-id');
+    setCursorMarker();
     $.get('/comments', { cursor: cursorMarker }, function(data) {
       $('#loading-pic').hide();
       if (data.length > 0) {
@@ -78,7 +72,7 @@ $(function() {
 
   socket.on("comments:added", function(data) {
     setSinceMarker();
-    if (postDelay != true) {
+    if (postDelay !== true) {
       $.get('/comments', { since: sinceMarker }, function(data) {
         if (data.length > 0) {
           if ($('#new-comments').length < 1) {

@@ -57,7 +57,7 @@ Comments.prototype.findComments = function(conditions, limit, callback) {
           callback(error);
         }
         else {
-          callback(null, results)
+          callback(null, results);
         }
       });
     }
@@ -75,7 +75,7 @@ Comments.prototype.findCommentsForAdmin = function(conditions, limit, skip, call
           callback(error);
         }
         else {
-          callback(null, results)
+          callback(null, results);
         }
       });
     }
@@ -93,7 +93,7 @@ Comments.prototype.findMostLoved = function(callback) {
           callback(error);
         }
         else {
-          callback(null, results)
+          callback(null, results);
         }
       });
     }

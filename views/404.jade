@@ -1,3 +1,14 @@
 div.content-stage
   div.main(role='main')
-    p We are sorry. The page you were looking for cannot be found.
+    div.general-wrapper
+      div.general-header
+        h1 Error 404: Page not Found
+      hr.grey
+      div.about-content.center
+        div.rep-img
+          img.heart(src='/images/heart-filled.png', alt='')
+          strong.type ?
+        p We are sorry. The page you were looking for does not exist.
+        p But take heart. You can use 
+          a(href='/') this link 
+          | to go back to the home page.

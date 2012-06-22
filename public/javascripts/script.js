@@ -1,9 +1,33 @@
-$(function() {
+var cursorMarker;
+var sinceMarker;
+var postDelay = false;
+var setCursorMarker = function () {
+  return cursorMarker = $('.msg').last().data('comment-id');
+};
+var setSinceMarker = function () {
+  return sinceMarker = $('.msg').first().data('comment-id');
+};
 
-  var postDelay = false;
-  var setSinceMarker = function () {
-    return sinceMarker = $('.msg').first().data('comment-id');
-  };
+function removeHash () { 
+  var scrollV, scrollH, loc = window.location;
+  if ("pushState" in history)
+    history.pushState("", document.title, loc.pathname + loc.search);
+  else {
+    scrollV = document.body.scrollTop;
+    scrollH = document.body.scrollLeft;
+
+    loc.hash = "";
+
+    document.body.scrollTop = scrollV;
+    document.body.scrollLeft = scrollH;
+  }
+}
+
+if (window.location.hash == '#_=_') {
+  removeHash();
+}
+
+$(function() {
 
   $('#notification').click(function () {
     $(this).slideUp();

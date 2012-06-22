@@ -47,14 +47,20 @@ div.stage
           form#comment-search.form-search(action='/search')
             input#search-query.search-input(type='text', placeholder='Search tags', name='q', autocomplete='off')
             button.search(type='submit') Search
-          div.results Results for   
-            strong #{tag}
+          - if (tags)
+            div.results Results for   
+              strong
+                - each tag in tags
+                  #{tag} 
         section.msgs
           - if (comments.length > 0)
             != partial('comments/comment')
           - else 
-            p No comments containing 
-              strong #{tag} 
+            p#no-results No comments containing 
+              strong 
+                - if (tags)
+                  - each tag in tags
+                    #{tag} 
               | were found.
 != partial('footer')
 script(src='/javascripts/tag.js')

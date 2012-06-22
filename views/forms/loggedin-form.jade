@@ -9,7 +9,7 @@ form#comment-form.comment-form.cf(method='post', action='/post')
         span.commenter-name #{everyauth.twitter.user.name} 
         span.logout
           a(href='/logout') Logout
-      - if (everyauth.facebook)
+      - else if (everyauth.facebook)
         input(type='hidden', name='loggedIn', value='facebook')
         img.avatar(src='http://graph.facebook.com/#{everyauth.facebook.user.username}/picture', alt='#{everyauth.facebook.user.name}')
         span.commenter-name #{everyauth.facebook.user.name} 
