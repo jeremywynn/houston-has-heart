@@ -425,8 +425,6 @@ module.exports = function (hhh, socketIO, commentProvider) {
     var userLoves = req.session.loves;
     var hasLoved = true;
 
-    // What about private browsing/no sessions? userLoves will be undefined!
-
     if (userLoves) {
       hasLoved = false;
       for(var i = 0; i < userLoves.length; i++) {
@@ -575,14 +573,17 @@ module.exports = function (hhh, socketIO, commentProvider) {
       res.send(missive);
     }
     else {
+      var Validator = require('validator').Validator;
+      var v = new Validator();
+      v.error = function(msg) {
+        return false;
+      };
 
       commenterName = sanitize(req.param('name')).xss();
       commenterIdentifier = sanitize(req.param('email')).xss();
 
-      if (comments.validText.test(req.param('name')) && comments.validText.test(req.param('email'))) {
-
+      if (comments.validText.test(commenterName) && v.check(commenterIdentifier).isEmail()) {
         commentMethod = 'Guest';
-
         commenterImageSrc = 'http://www.gravatar.com/avatar/' + crypto.createHash('md5').update(req.param('email')).digest('hex') + '?d=';
         saveComment();
       }

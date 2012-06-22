@@ -3,11 +3,6 @@
  */
 
 var express = require('express');
-var moment = require('moment');
-var util = require('util');
-//var everyauth = require('everyauth');
-//var Promise = everyauth.Promise;
-
 var hhh = module.exports = express.createServer();
 
 // SocketIO
